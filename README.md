@@ -26,7 +26,7 @@ Kada se uđe u Vim, potrebno je ukucati sledeće:
 :PlugInstall
 ```
 i sačekati sa izvršenjem. Ovo će da instalira svaki ugrađeni plugin.
-Kada se dobije poruka `**Finishing ... Done!**`, potrebno je source-ati `.vimrc` fajl komandom:
+Kada se dobije poruka `Finishing ... Done!`, potrebno je source-ati `.vimrc` fajl komandom:
 ```
 :source ~/.vimrc
 ```
