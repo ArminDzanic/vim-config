@@ -17,7 +17,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'airblade/vim-gitgutter'           "Git integration
   Plug 'dense-analysis/ale'               "For real-time syntax-checking
   Plug 'christoomey/vim-tmux-navigator'   "Tmux
-  Plug 'morhetz/gruvbox'                  "Custom colourscheme
   Plug 'junegunn/vim-emoji'               "Custom emojis
   Plug 'jiangmiao/auto-pairs'             "Auto-completion of brackets
   Plug 'RRethy/vim-illuminate'            "Reference highlighting in scope
@@ -27,6 +26,7 @@ call plug#end()
 
 " General settings-------------------------------------------------------------
 
+syntax enable                       "Enable suntax highlighting
 set termguicolors                   "Enable 24-bit RGB colours
 set colorcolumn=80                  "Enables column for line breakage marker
 set number                          "Show line numbers
@@ -36,17 +36,55 @@ set shiftwidth=2                    "Number of spaces for autoindent
 set expandtab                       "Use spaces instead of tabs
 set smartindent                     "Smart indentation
 set clipboard=unnamedplus           "Use system clipboard
-syntax enable                       "Enable syntax highlighting
 set background=dark                 "Dark background
-colorscheme gruvbox                 "Sets colorscheme to plugged gruvbox
 filetype plugin indent on           "Enable plugins and auto indentation
 set mouse=a                         "Enables cursor control with mouse
 set scrolloff=0                     "Prevents scrolling beyond last line
 
-                                    "Forces Vim to source colorscheme
-autocmd VimEnter * colorscheme gruvbox
-                                    "Forces Vim to write comments in Italic
-autocmd BufEnter * highlight Comment cterm=italic gui=italic
+                                    "Apply syntax rules on startup
+autocmd VimEnter * syntax enable
+
+" Colorscheme settings---------------------------------------------------------
+                                    "Gray-green comments (also italic)
+hi Comment guifg=#71857E cterm=italic
+                                    "Light green and italic strings
+hi String guifg=#8BCA84 cterm=italic
+                                    "Gray-green colorcolumn
+hi ColorColumn guibg=#333333
+                                    "Faint gray cursorline
+hi CursorLine guibg=#333333 guifg=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
+                                    "Beige variable types
+hi Type guifg=#F6E8B1
+                                    "Beige operators (doesn't work currently)
+hi Operator guifg=#FFA500 guibg=NONE
+                                    "Yellow line numbers
+hi LineNr guifg=#FDC637 guibg=NONE gui=NONE ctermfg=110 ctermbg=NONE cterm=NONE
+                                    "White normal text
+hi Normal guifg=#F0F6FC
+                                    "Yellow Vim commands
+hi vimCommand guifg=#FDC637 guibg=NONE 
+                                    "Yellow filler lines (the ~ character after 
+                                    "the last line in the buffer)
+hi EndOfBuffer guifg=#0D1117
+                                    "Error message on the command line
+hi ErrorMsg guifg=#F6E8B1 guibg=#0D1117
+                                    "The column separating vertically split
+                                    "windows
+hi VertSplit guifg=#FDC647 guibg=#FDC637
+                                    "-- INSERT -- Message when in INSERT mode
+hi ModeMsg guifg=#FDC637
+                                    "Warning messages
+hi WarningMsg guifg=#FDC637 guibg=#0D1117
+                                    "Sign column in the same colour as the
+                                    "background
+hi SignColumn guibg=#0D1117 guifg=#0D1117
+                                    "Orange current line number
+highlight CursorLineNr guifg=#FF8800 guibg=NONE cterm=NONE
+                                    "Black popup menu with yellow highlights
+highlight Pmenu NONE 
+highlight PmenuSel guibg=#FDC637 guifg=#000000
+highlight PmenuSbar NONE 
+highlight PmenuThumb guibg=#FDC637
 
 " Key mappings-----------------------------------------------------------------
                                     "Opens NERDTree with Ctrl+n
@@ -87,8 +125,14 @@ nmap <C-i> <C-i>
 autocmd FileType c,cpp setlocal commentstring=//\ %s
 autocmd FileType sql setlocal commentstring=--\ %s
 autocmd FileType tex setlocal commentstring=%\ %s
+                                    "Switches between different buffers
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprev<CR>
 
-" Scope highlighting-----------------------------------------------------------
+
+
+" Vim LSP configuration--------------------------------------------------------
+
 
 
 " ALE configuration------------------------------------------------------------
@@ -135,13 +179,13 @@ let g:airline_powerline_fonts = 1
 
 " GitGutter configuration------------------------------------------------------
                                     "Enable GitGutter
-let g:gitgutter_enabled = 1 		                
-
-" gruvbox configuration--------------------------------------------------------
-                                    "Sets hardness of colorscheme contrast
-let g:gruvbox_contrast_dark = 'hard'
-                                    "Sets Italic font for certain text
-let g:gruvbox_italic = 1
+let g:gitgutter_enabled = 1
+                                    "Mark added lines in the gutter
+let g:gitgutter_sign_added = '🟢'
+                                    "Mark modified lines in the gutter
+let g:gitgutter_sign_modified = '🟡'
+                                    "Mark deleted lines in the gutter
+let g:gitgutter_sign_removed = '🔴'  
 
 " Custom header----------------------------------------------------------------
 let g:startify_custom_header = [
