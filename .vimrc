@@ -195,6 +195,7 @@ let g:startify_custom_header = [
 \ '  \ \__|  \ \_\\ \_\ \ \_\\ \____- \ \_\\ \_____\\/\_____\\ \_____\\ \_____\' ,
 \ '   \/_/    \/_/ \/_/  \/_/ \/____/  \/_/ \/_____/ \/_____/ \/_____/ \/_____/' ,
 \ '                                                                           ',
+\ '     Providing support for a family of programming languages since 2024    ',
 \ '                                                                           ',
 \ '                           Welcome to VimDiesel!                           ',
 \ '                                                                           ',
