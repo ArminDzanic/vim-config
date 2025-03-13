@@ -21,6 +21,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'jiangmiao/auto-pairs'             "Auto-completion of brackets
   Plug 'RRethy/vim-illuminate'            "Reference highlighting in scope
   Plug 'mhinz/vim-startify'               "Shows ASCII art at the start
+  Plug 'morhetz/gruvbox'                  "Sets colorscheme to gruvbox
 
 call plug#end()
 
@@ -40,51 +41,18 @@ set background=dark                 "Dark background
 filetype plugin indent on           "Enable plugins and auto indentation
 set mouse=a                         "Enables cursor control with mouse
 set scrolloff=0                     "Prevents scrolling beyond last line
-
+colorscheme gruvbox                 "Applies the plugged colorscheme
+set background=dark                 "Sets background to dark
                                     "Apply syntax rules on startup
 autocmd VimEnter * syntax enable
 
-" Colorscheme settings---------------------------------------------------------
-                                    "Gray-green comments (also italic)
-hi Comment guifg=#71857E cterm=italic
-                                    "Light green and italic strings
-hi String guifg=#8BCA84 cterm=italic
-                                    "Gray-green colorcolumn
-hi ColorColumn guibg=#333333
-                                    "Faint gray cursorline
-hi CursorLine guibg=#333333 guifg=NONE ctermfg=NONE ctermbg=NONE cterm=NONE
-                                    "Beige variable types
-hi Type guifg=#F6E8B1
-                                    "Beige operators (doesn't work currently)
-hi Operator guifg=#FFA500 guibg=NONE
-                                    "Yellow line numbers
-hi LineNr guifg=#FDC637 guibg=NONE gui=NONE ctermfg=110 ctermbg=NONE cterm=NONE
-                                    "White normal text
-hi Normal guifg=#F0F6FC
-                                    "Yellow Vim commands
-hi vimCommand guifg=#FDC637 guibg=NONE 
-                                    "Yellow filler lines (the ~ character after 
-                                    "the last line in the buffer)
-hi EndOfBuffer guifg=#0D1117
-                                    "Error message on the command line
-hi ErrorMsg guifg=#F6E8B1 guibg=#0D1117
-                                    "The column separating vertically split
-                                    "windows
-hi VertSplit guifg=#FDC647 guibg=#FDC637
-                                    "-- INSERT -- Message when in INSERT mode
-hi ModeMsg guifg=#FDC637
-                                    "Warning messages
-hi WarningMsg guifg=#FDC637 guibg=#0D1117
-                                    "Sign column in the same colour as the
-                                    "background
-hi SignColumn guibg=#0D1117 guifg=#0D1117
-                                    "Orange current line number
-highlight CursorLineNr guifg=#FF8800 guibg=NONE cterm=NONE
-                                    "Black popup menu with yellow highlights
-highlight Pmenu NONE 
-highlight PmenuSel guibg=#FDC637 guifg=#000000
-highlight PmenuSbar NONE 
-highlight PmenuThumb guibg=#FDC637
+" Changes to the original colorscheme -----------------------------------------
+
+autocmd VimEnter * hi Comment cterm=italic
+autocmd VimEnter * hi String cterm=italic
+autocmd VimEnter * hi EndOfBuffer guifg=#1C1C1C
+autocmd VimEnter * hi LineNr guifg=#FDC637 guibg=NONE ctermfg=110 ctermbg=NONE
+autocmd VimEnter * hi CursorLineNr guifg=#FF8000 guibg=NONE cterm=NONE
 
 " Key mappings-----------------------------------------------------------------
                                     "Opens NERDTree with Ctrl+n
@@ -167,6 +135,7 @@ let g:ale_linters = {
 \   'c': ['gcc', 'clang', 'cppcheck'],
 \   'sql': ['sqlint'],
 \   'tex': ['chktex'],
+\   'java': ['javac'],
 \}
 
 " Airline configuration--------------------------------------------------------
@@ -176,6 +145,10 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='dark'           
                                     "Enables powerline fonts if installed
 let g:airline_powerline_fonts = 1      
+
+" Gruvbox configuration -------------------------------------------------------
+let g:gruvbox_contrast_dark = 'hard'
+
 
 " GitGutter configuration------------------------------------------------------
                                     "Enable GitGutter
